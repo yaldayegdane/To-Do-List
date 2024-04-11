@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <title>To-Do List</title>
+        <link rel="stylesheet" href="assets/css/style.css"/>
+        <link rel="stylesheet" href="assets/css/fontawesome/fontawesome.css"/>
+        <link rel="stylesheet" href="assets/css/fontawesome/solid.css"/>
+    </head>
+    <body>
+        <div class="container">
+           <div class="d-flex">
+            <div class="left col-6">
+                <h1>To-Do List <i class="fa-solid fa-clipboard-list"></i></h1>
+            <input class="taskInput" placeholder="add a new task"/>
+            <button onclick="addtask()">Add Task</button>
+            <ul class="list"></ul>
+            </div>
+            <div class="right col-6">
+                <img src="assets/images/Untitled-1.jpg" />
+            </div>
+           </div>
+        </div>
+        <script>
+            var list = document.querySelector(".list");
+            var input = document.querySelector(".taskInput");
+            function addtask() {
+                var inputValue = input.value;
+                if (inputValue.trim().length === 0 ) {
+                alert("Please enter your Task!")
+                input.value = "";
+                return;
+                }
+                if (inputValue.trim().length < 3 ) {
+                alert("Please write 3 characters at least!")
+                input.value = "";
+                return;
+                }
+                var li = document.createElement("LI");
+                var span = document.createElement("SPAN");
+                span.textContent = inputValue;
+                span.addEventListener("click", function(e){
+                    e.target.classList.toggle("done");
+                })
+                li.appendChild(span);
+                var btnRemove = document.createElement("BUTTON");
+                btnRemove.textContent = "";
+                var icon = document.createElement("I");
+                icon.classList.add("fa-solid", "fa-trash-can");
+                btnRemove.appendChild(icon);
+                li.appendChild(btnRemove);
+                btnRemove.addEventListener("click", function(trash) {
+                    trash.target.parentElement.remove();
+                });
+                list.appendChild(li);
+                input.value = "";
+                input.focus();
+            }
+            input.focus();
+            input.addEventListener("keydown", function(enter) {
+                if (enter.key === "Enter" ) {
+                    addtask();
+                }
+            })
+        </script>
+    </body>
+</html>
